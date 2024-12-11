@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the Book Reservation App</h1>
+</body>
+</html>
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome to the Dashboard</h1>
+{% endblock %}
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <p>Total Students: {{ total_students }}</p>
+    <p>Average GPA: {{ avg_gpa }}</p>
+    <p>Number of Seniors: {{ num_seniors }}</p>
+    <p>Number of Juniors: {{ num_juniors }}</p>
+{% endblock %}

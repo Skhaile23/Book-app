@@ -3,48 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Library System{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login</title>
+    <style>
+        /* Reset and Base Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Login Container */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .login-container h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        /* Base HTML Styles */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li a {
+            padding: 10px 20px;
+            background-color: #45a049;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            background-color: #3e8e41;
+        }
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Library System</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'student_details' %}">Student Details</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'book_details' %}">Book Details</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'book_reservation' %}">Book Reservation</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                </ul>
-            </div>
+    <div id="content">
+        <div class="login-container">
+            <h1>Login</h1>
+            <form method="post" onsubmit="return validateLogin(event)">
+                <div id="error-message" class="error"></div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" placeholder="Enter your username" required>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                <button type="submit">Login</button>
+            </form>
         </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container mt-4">
-        {% block content %}
-        {% endblock %}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function validateLogin(event) {
+            event.preventDefault(); // Prevent form submission
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Hardcoded credentials
+            if (username === "admin" && password === "admin") {
+                const baseHTML = `
+                <header>
+                    <h1>Book Reservation App</h1>
+                    <nav>
+                        <ul>
+                            <li><a href="dashboard.html">Dashboard</a></li>
+                            <li><a href="student_details.html">Student Details</a></li>
+                            <li><a href="book_details.html">Book Details</a></li>
+                            <li><a href="book_reservation.html">Book Reservation</a></li>
+                            <li><a href="logout.html">Logout</a></li>
+                        </ul>
+                    </nav>
+                </header>
+                <main>
+                    <h1>Welcome to the Book Reservation App</h1>
+                    <p>Use the navigation bar above to explore.</p>
+                </main>
+                <footer>
+                    <p>&copy; 2024 Book Reservation App. All rights reserved.</p>
+                </footer>`;
+                document.getElementById("content").innerHTML = baseHTML; // Replace content with base HTML
+            } else {
+                const errorMessage = document.getElementById("error-message");
+                errorMessage.textContent = "Invalid username or password. Please try again.";
+            }
+        }
+    </script>
 </body>
 </html>
 
